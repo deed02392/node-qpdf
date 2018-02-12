@@ -97,6 +97,25 @@ Qpdf.decrypt = function(input, password, callback) {
   }
 };
 
+Qpdf.linearize = function(input, output, callback) {
+  if (!input) return handleError(new Error('Specify input file'), callback);
+  if (!output) return handleError(new Error('Specify output file'), callback);
+
+  var args = [Qpdf.command, '--linearize'];
+
+  // Input file path
+  args.push(input);
+
+  // Output file path
+  args.push(output);
+
+  // Execute command
+  var outputStream = callback ? executeCommand(args, callback) : executeCommand(args);
+  if (outputStream) {
+    return outputStream;
+  }
+};
+
 function executeCommand(args, callback) {
   var child;
 
